@@ -4,8 +4,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import NavBarMain from "./components/NavBarMain";
 import { ThemeProvider } from 'next-themes'
-import FooterBarMain from "./components/FooterBarMain";
 import SideBarMain from "./components/SideBarMain";
+
 
 
 
@@ -28,7 +28,7 @@ export default function RootLayout({
           </header>
           <main className="flex w-screen" >
           
-          <div className="hidden md:block h-screen w-1/5 ">
+          <div className=" h-screen w-1/5 ">
           <SideBarMain />
           </div>
           <div className="w-full">

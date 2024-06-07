@@ -7,7 +7,7 @@ import SearchBar from "./SearchBar";
 
 export default function NavBarMain() {
   return (
-<div className="bg-primary-800 dark:bg-secondary-500">
+<div className=" bg-primary-800 dark:bg-secondary-500">
   <div className=" flex justify-between  p-4">
     
     <Link href="/" >
