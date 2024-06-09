@@ -2,7 +2,7 @@ import { MagnifyingGlassIcon } from "@heroicons/react/16/solid"
 export default function SearchBar() {
 
     return(
-        <form className="max-w-md mx-auto">   
+        <form className=" max-w-md mx-auto">   
     <div className="relative">
         <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
         <MagnifyingGlassIcon className="w-5 h-5 text-gray-400" aria-hidden="true" />

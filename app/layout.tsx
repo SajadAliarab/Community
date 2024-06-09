@@ -23,12 +23,12 @@ export default function RootLayout({
     <html lang="en" className="dark" suppressHydrationWarning>
       <body className="bg-secondary-100 dark:bg-primary-800">
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
-          <header>
+          <header className="fixed top-0 left-0 right-0">
             <NavBarMain />
           </header>
           <main className="flex w-screen" >
           
-          <div className=" h-screen w-1/5 ">
+          <div className=" mt-20 h-screen w-1/5 ">
           <SideBarMain />
           </div>
           <div className="w-full">
