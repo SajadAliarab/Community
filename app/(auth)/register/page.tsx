@@ -1,7 +1,8 @@
 'use client';
 import { IdentificationIcon } from '@heroicons/react/20/solid';
-import { useForm , SubmitHandler } from 'react-hook-form';
+import { useForm , SubmitHandler, set } from 'react-hook-form';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation'
 
 interface IFormInput {
     email: string;
@@ -12,10 +13,28 @@ interface IFormInput {
 }
 
 export default function Register() {
+    const router = useRouter();
 
     const { register, handleSubmit,watch,formState: { errors } } = useForm<IFormInput>();
-    const onSubmit: SubmitHandler<IFormInput> = ({email,password}) => console.log({email,password});
+    const onSubmit: SubmitHandler<IFormInput> = async ({email,password,name}) => 
+       await fetch('http://localhost:5000/api/users/signup', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({email,password,name})
+        })
+        .then(response => response.json())
+        .then(data =>{
+            if(data.success){
+            router.push('/login');
+            }else{
+               setWarning(true);
+            }
+        })
+        .catch(err => console.log(err));
     const [policyAccepted, setPolicyAccepted] = useState(false);
+    const [warning, setWarning] = useState(false);
 
 
 
@@ -127,6 +146,9 @@ export default function Register() {
                      disabled={!policyAccepted}>
                         Register
                     </button>
+                    <div className="flex justify-center mt-5">
+                        <span className="text-red-500">{warning ? 'This email is already in use' : ''}</span>
+                        </div>
                     </div>
                 </form>
         </div>

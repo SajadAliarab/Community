@@ -2,7 +2,8 @@
 import { LockClosedIcon } from "@heroicons/react/16/solid";
 import Link from "next/link";
 import { useForm , SubmitHandler } from "react-hook-form";
-
+import { useState } from "react";
+import { useRouter} from "next/navigation";
 
 type Inputs = {
   email: string;
@@ -16,8 +17,29 @@ export default function Login() {
     watch,
     formState: { errors },
   } = useForm<Inputs>();
+  const router = useRouter();
+
+  const [warning, setWarning] = useState(false);
   
-   const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+   const onSubmit: SubmitHandler<Inputs> = async({email,password}) =>{
+    await fetch('http://localhost:5000/api/users/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({email,password})
+    })
+    .then(response => response.json())
+    .then(data => {
+      if(data.success){
+        router.push('/');
+      }else{
+       setWarning(true);
+      }
+    })
+    .catch(err => console.log(err));
+
+   };
 
 
   return (
@@ -99,6 +121,9 @@ export default function Login() {
         >
           Join
         </Link>
+        <div className="flex justify-center">
+          {warning && <span className="text-red-500">Invalid email or password</span>}
+        </div>
        
       </form>
     </div>
